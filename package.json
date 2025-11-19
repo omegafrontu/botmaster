@@ -1,0 +1,23 @@
+{
+  "name": "dogmatic",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "dev": "node --watch app"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "discord.js": "^14.24.2",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "http": "^0.0.1-security",
+    "mysql2": "^3.15.3",
+    "socket.io": "^4.8.1"
+  }
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Discord Dashboard</title>
+
+    <!-- FIXED: load CSS from this same server -->
+    <link rel="stylesheet" type="text/css" href="/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Discord Bot Dashboard</h1>
+
+      <!-- ==== ADD SERVER FORM ==== -->
+      <form id="addForm">
+        <input
+          type="text"
+          id="guildId"
+          placeholder="Guild ID (e.g. 123456789012345678)"
+          required
+        />
+        <button type="submit">Add Server</button>
+      </form>
+      <p id="msg"></p>
+
+      <!-- ==== SERVER LIST ==== -->
+      <h2>Added Servers</h2>
+      <ul id="serverList"></ul>
+
+      <!-- ==== LIVE MEMBER JOINS ==== -->
+      <h2>Recent Joins</h2>
+      <ul id="joins"></ul>
+    </div>
+
+    <button onclick="downloadLog()">Export Joins (TXT)</button>
+
+    <script>
+      function downloadLog() {
+        fetch("/export-joins")
+          .then((res) => res.blob())
+          .then((blob) => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "discord-joins.txt";
+            a.click();
+          });
+      }
+    </script>
+
+    <!-- Must load from same server -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      const socket = io();
+      const form = document.getElementById("addForm");
+      const input = document.getElementById("guildId");
+      const msg = document.getElementById("msg");
+      const list = document.getElementById("serverList");
+      const joins = document.getElementById("joins");
+
+      // ---- receive full server list ----
+      socket.on("servers", (servers) => {
+        list.innerHTML = "";
+        servers.forEach((s) => {
+          const li = document.createElement("li");
+
+          if (s.icon) {
+            const img = document.createElement("img");
+            img.src = s.icon;
+            img.alt = s.name;
+            img.width = 32;
+            img.style.borderRadius = "50%";
+            li.appendChild(img);
+          }
+
+          li.append(` ${s.name} (${s.id})`);
+          list.appendChild(li);
+        });
+      });
+
+      // ---- live member joins ----
+      socket.on("memberJoin", (data) => {
+        const li = document.createElement("li");
+        li.textContent = `${data.username} → ${data.guild}`;
+        joins.prepend(li);
+      });
+
+      // ---- add server form ----
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        msg.textContent = "";
+        const guildId = input.value.trim();
+
+        if (!guildId) return;
+
+        const res = await fetch("/api/add-server", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ guildId }),
+        });
+
+        const json = await res.json();
+
+        if (json.success) {
+          msg.textContent = `Added ${json.server.name}`;
+          msg.style.color = "lime";
+          input.value = "";
+        } else {
+          msg.textContent = json.error || "Error";
+          msg.style.color = "red";
+        }
+      });
+    </script>
+  </body>
+</html>

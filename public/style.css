@@ -1,0 +1,36 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #36393f;
+  color: #dcddde;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #2f3136;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+h1 {
+  color: #00b0f4;
+}
+
+#status {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: #40444b;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discord Bot Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Discord Bot Dashboard</h1>
+      <div id="status">Connecting...</div>
+      <ul id="servers"></ul>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      const status = document.getElementById("status");
+      const serverList = document.getElementById("servers");
+
+      socket.on("connect", () => {
+        status.textContent = "Connected to server";
+        status.style.color = "green";
+      });
+
+      socket.on("memberJoin", (data) => {
+        const li = document.createElement("li");
+        li.textContent = `${data.username} joined ${data.guild}`;
+        serverList.prepend(li);
+      });
+    </script>
+  </body>
+</html>
