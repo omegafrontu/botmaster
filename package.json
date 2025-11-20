@@ -1,11 +1,12 @@
 {
-  "name": "dogmatic",
+  "name": "notify-bot",
   "version": "1.0.0",
   "type": "module",
   "main": "app.js",
   "scripts": {
     "start": "node app",
-    "dev": "node --watch app"
+    "dev": "node --watch app",
+    "install":  "npm config set git-tag-version false && git config url.\"https://github.com/\".insteadOf ssh://git@github.com/"
   },
   "keywords": [],
   "author": "",
@@ -21,3 +22,5 @@
     "socket.io": "^4.8.1"
   }
 }
+
+
