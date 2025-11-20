@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node app",
     "dev": "node --watch app",
-    "install":  "npm config set git-tag-version false && git config url.\"https://github.com/\".insteadOf ssh://git@github.com/",
+    "install": "npm config set git-tag-version false && git config url.\"https://github.com/\".insteadOf ssh://git@github.com/",
     "preinstall": "git config url.\"https://github.com/\".insteadOf ssh://git@github.com/ && npm config set git-tag-version false"
   },
   "keywords": [],
@@ -14,6 +14,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@vercel/node": "^5.5.7",
     "discord.js": "^14.24.2",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
@@ -23,5 +24,3 @@
     "socket.io": "^4.8.1"
   }
 }
-
-
