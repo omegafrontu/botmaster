@@ -10,8 +10,8 @@
     "preinstall": "git config url.\"https://github.com/\".insteadOf ssh://git@github.com/ && npm config set git-tag-version false"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Jully",
+  "license": "MIT",
   "description": "",
   "dependencies": {
     "@vercel/node": "^5.5.7",
@@ -22,7 +22,7 @@
     "http": "^0.0.1-security",
     "mysql2": "^3.15.3",
     "socket.io": "^4.8.1",
-    "vercel": "^48.10.4",
-    "node": "https://github.com/vercel/node.git"
+    "vercel": "^48.10.4"
   }
 }
+

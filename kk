@@ -1,0 +1,1 @@
+// "node": "https://github.com/omegafrontu/notify-bot.git"
